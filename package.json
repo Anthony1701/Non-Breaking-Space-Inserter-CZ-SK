@@ -1,0 +1,85 @@
+{
+  "name": "nbsp-inserter",
+  "displayName": "Non-Breaking Space Inserter",
+  "description": "Automatically inserts non-breaking spaces (&nbsp;) according to Czech and Slovak typographic rules",
+  "version": "1.0.0",
+  "publisher": "your-publisher-name",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Formatters",
+    "Other"
+  ],
+  "keywords": [
+    "nbsp",
+    "non-breaking space",
+    "czech",
+    "slovak",
+    "typography",
+    "formatting"
+  ],
+  "activationEvents": [
+    "onCommand:nbsp.insertInSelection",
+    "onCommand:nbsp.insertInDocument",
+    "onCommand:nbsp.insertInLine"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "nbsp.insertInSelection",
+        "title": "Insert &nbsp; in Selection",
+        "category": "NBSP"
+      },
+      {
+        "command": "nbsp.insertInDocument",
+        "title": "Insert &nbsp; in Entire Document",
+        "category": "NBSP"
+      },
+      {
+        "command": "nbsp.insertInLine",
+        "title": "Insert &nbsp; in Current Line",
+        "category": "NBSP"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "nbsp.insertInSelection",
+        "key": "ctrl+shift+space",
+        "mac": "cmd+shift+space",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "Non-Breaking Space Inserter",
+      "properties": {
+        "nbspInserter.enableCzechRules": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable Czech typographic rules"
+        },
+        "nbspInserter.enableSlovakRules": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable Slovak typographic rules"
+        },
+        "nbspInserter.autoDetectLanguage": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically detect language and apply appropriate rules"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "typescript": "^4.9.4"
+  }
+}
