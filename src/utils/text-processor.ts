@@ -1,6 +1,10 @@
 import * as vscode from 'vscode';
 
 export class TextProcessor {
+    private htmlTags: string[] = [];
+    private readonly HTML_PLACEHOLDER_PREFIX = '__HTML_TAG_';
+    private readonly HTML_PLACEHOLDER_SUFFIX = '__';
+
     constructor() {}
 
     public processText(text: string): string {
@@ -9,10 +13,12 @@ export class TextProcessor {
         const enableSlovak = config.get<boolean>('enableSlovakRules', true);
         const autoDetect = config.get<boolean>('autoDetectLanguage', true);
 
-        let processedText = text;
+        // 1. Pre-processing: Mask HTML tags
+        let processedText = this.maskHtmlTags(text);
 
+        // 2. Apply typographic rules
         if (autoDetect) {
-            const language = this.detectLanguage(text);
+            const language = this.detectLanguage(processedText);
             if (language === 'czech' && enableCzech) {
                 processedText = this.applyCzechRules(processedText);
             } else if (language === 'slovak' && enableSlovak) {
@@ -35,7 +41,39 @@ export class TextProcessor {
             }
         }
 
+        // 3. Post-processing: Restore HTML tags
+        processedText = this.unmaskHtmlTags(processedText);
+
         return processedText;
+    }
+
+    private maskHtmlTags(text: string): string {
+        // Reset the tags array for each processing
+        this.htmlTags = [];
+        
+        // Find all HTML tags including:
+        // - Regular tags: <tag>, </tag>
+        // - Tags with attributes: <tag attr="value">
+        // - Self-closing tags: <tag />
+        // - Comments: <!-- comment -->
+        // - DOCTYPE: <!DOCTYPE html>
+        const htmlTagRegex = /<(?:!(?:--[\s\S]*?--|\[CDATA\[[\s\S]*?\]\]|DOCTYPE[^>]*)|\/?\w+(?:\s+[^>]*)?\/?)>/gi;
+        
+        return text.replace(htmlTagRegex, (match) => {
+            const index = this.htmlTags.length;
+            this.htmlTags.push(match);
+            return `${this.HTML_PLACEHOLDER_PREFIX}${index}${this.HTML_PLACEHOLDER_SUFFIX}`;
+        });
+    }
+
+    private unmaskHtmlTags(text: string): string {
+        // Restore HTML tags from placeholders
+        const placeholderRegex = new RegExp(`${this.HTML_PLACEHOLDER_PREFIX}(\\d+)${this.HTML_PLACEHOLDER_SUFFIX}`, 'g');
+        
+        return text.replace(placeholderRegex, (match, indexStr) => {
+            const index = parseInt(indexStr, 10);
+            return this.htmlTags[index] || match;
+        });
     }
 
     private applyCzechRules(text: string): string {
