@@ -1,9 +1,18 @@
 {
   "name": "nbsp-inserter",
-  "displayName": "Non-Breaking Space Inserter",
+  "displayName": "Non-Breaking Space Inserter CZ/SK",
   "description": "Automatically inserts non-breaking spaces (&nbsp;) according to Czech and Slovak typographic rules",
   "version": "1.0.0",
-  "publisher": "your-publisher-name",
+  "publisher": "antonin-simkanin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Anthony1701/Non-Breaking-Space-Inserter-CZ-SK.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Anthony1701/Non-Breaking-Space-Inserter-CZ-SK/issues"
+  },
+  "homepage": "https://github.com/Anthony1701/Non-Breaking-Space-Inserter-CZ-SK#readme",
   "engines": {
     "vscode": "^1.74.0"
   },
