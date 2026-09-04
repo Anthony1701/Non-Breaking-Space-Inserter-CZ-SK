@@ -1,5 +1,9 @@
 # Non-Breaking Space Inserter CZ/SK
 
+[![Marketplace](https://img.shields.io/visual-studio-marketplace/v/antonin-simkanin.nbsp-inserter?label=Marketplace)](https://marketplace.visualstudio.com/items?itemName=antonin-simkanin.nbsp-inserter)
+[![Installs](https://img.shields.io/visual-studio-marketplace/i/antonin-simkanin.nbsp-inserter)](https://marketplace.visualstudio.com/items?itemName=antonin-simkanin.nbsp-inserter)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A VS Code extension that automatically inserts non-breaking spaces (&nbsp;) according to Czech and Slovak typographic rules.
 
 ## Features
@@ -68,10 +72,17 @@ Setkáme se v&nbsp;15&nbsp;h na náměstí&nbsp;atd.
 ## Installation
 
 ### From VS Code Marketplace
-1. Open VS Code
-2. Go to Extensions (Ctrl+Shift+X)
-3. Search for "Non-Breaking Space Inserter"
-4. Click Install
+[Install from the Marketplace](https://marketplace.visualstudio.com/items?itemName=antonin-simkanin.nbsp-inserter), or from inside VS Code:
+
+1. Open Extensions (Ctrl+Shift+X)
+2. Search for "Non-Breaking Space Inserter"
+3. Click Install
+
+Or from the command line:
+
+```bash
+code --install-extension antonin-simkanin.nbsp-inserter
+```
 
 ### Manual Installation
 1. Download the `.vsix` file from releases
@@ -100,8 +111,17 @@ npm run compile
 
 ### Packaging
 ```bash
-npm install -g vsce
-vsce package
+npm run package
+```
+
+The store description is a separate file, [MARKETPLACE.md](MARKETPLACE.md) — it drops
+the sections that only matter to contributors (manual install, build, packaging). The
+`package` and `publish` scripts point `vsce` at it via `--readme-path`, and this README
+is excluded from the VSIX in [.vscodeignore](.vscodeignore) so the two never collide.
+
+### Publishing
+```bash
+npm run publish
 ```
 
 ## Supported File Types
@@ -123,7 +143,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT License
+[MIT](LICENSE)
 
 ## Author
 

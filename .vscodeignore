@@ -1,6 +1,8 @@
 .vscode/**
 .vscode-test/**
+.github/**
 src/**
+node_modules/**
 .gitignore
 .yarnrc
 vsc-extension-quickstart.md
@@ -8,3 +10,8 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.map
 **/*.ts
+*.vsix
+package-lock.json
+
+# the GitHub readme; the store description is MARKETPLACE.md (see the package script)
+README.md

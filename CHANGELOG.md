@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2026-09-04
+
+### Added
+- Extension icon
+
+### Changed
+- Added a `LICENSE` file (MIT) that was previously only declared in `package.json`
+- Removed the deprecated `activationEvents` entries — VS Code generates them from
+  `contributes.commands` since 1.74
+
 ## [1.0.0] - 2025-08-22
 
 ### Added
